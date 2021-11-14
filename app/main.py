@@ -2,7 +2,7 @@ from flask import Flask
 from flask import request, jsonify
 from flask_cors import CORS, cross_origin
 from .redactioncalc import get_distances_from_filepaths
-import os, sys
+import os, sys,json
 import numpy as np
 app= Flask(__name__)
 cors = CORS(app)
@@ -62,11 +62,12 @@ def levenshtein():
     row1 = values.to_json()
     
     print(row1)
+    print(json.loads(row1))
     
     response = {
      'levenshtein': {
         'mss': [mss1_name, mss2_name],
-        'values': row1
+        'values': json.loads(row1)
       }
     }
   return jsonify(response)
