@@ -1,8 +1,11 @@
 from flask import Flask
 from flask import request, jsonify
+from flask_cors import CORS, cross_origin
 from .redactioncalc import get_distances_from_filepaths
 import os, json
 app= Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/', methods=['GET'])
 def home():
@@ -10,6 +13,7 @@ def home():
 
 # Route to return all available texts that can be compared
 @app.route('/texts', methods=['GET'])
+@cross_origin()
 def texts():
   # TODO Rather than using local files use a database
   response = {
@@ -18,6 +22,7 @@ def texts():
   return jsonify(response)
 
 @app.route('/display', methods=['GET'])
+@cross_origin()
 def display():
   #TODO this function returns an internal server error rather than displaying mss 
   # something to do with escape characters and format issues I think...
@@ -35,6 +40,7 @@ def display():
   return jsonify(response)
 
 @app.route('/levenshtein', methods=['GET'])
+@cross_origin()
 def levenshtein():
   # Get parameters for documents to compare from url 
   mss1_name = request.args.get('mss1')
