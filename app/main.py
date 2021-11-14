@@ -1,12 +1,8 @@
 from flask import Flask
 from flask import request, jsonify
-from flask_cors import CORS, cross_origin
 from .redactioncalc import get_distances_from_filepaths
-import os, sys,json
-import numpy as np
+import os, json
 app= Flask(__name__)
-# cors = CORS(app)
-# app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/', methods=['GET'])
 def home():
@@ -44,7 +40,6 @@ def levenshtein():
   mss1_name = request.args.get('mss1')
   mss2_name = request.args.get('mss2')
   response = {}
-  
   if (mss1_name is None) or (mss2_name is None):
     response = {'error': 'invalid manuscript names'}
   else:  
@@ -53,17 +48,10 @@ def levenshtein():
       mss2_name : concat_filepath(mss2_name)
     }
     values = get_distances_from_filepaths(files)
-    print(values)
-
-    row1 = values.to_json()
-    
-    print(row1)
-    print(json.loads(row1))
-    
     response = {
      'levenshtein': {
         'mss': [mss1_name, mss2_name],
-        'values': json.loads(row1)
+        'values': json.loads(values.to_json())
       }
     }
   return jsonify(response)
