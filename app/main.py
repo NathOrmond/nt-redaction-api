@@ -5,8 +5,8 @@ from .redactioncalc import get_distances_from_filepaths
 import os, sys,json
 import numpy as np
 app= Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+# cors = CORS(app)
+# app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/', methods=['GET'])
 def home():
