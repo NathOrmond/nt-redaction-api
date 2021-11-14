@@ -19,6 +19,8 @@ def texts():
 
 @app.route('/display', methods=['GET'])
 def display():
+  #TODO this function returns an internal server error rather than displaying mss 
+  # something to do with escape characters and format issues I think...
   mss_name = request.args.get('mss')
   mss_list = os.listdir('./testmss')
   content = ''
@@ -35,25 +37,29 @@ def display():
 @app.route('/levenshtein', methods=['GET'])
 def levenshtein():
   # Get parameters for documents to compare from url 
-  # mss1_name = request.args.get('mss1')
-  # mss2_name = request.args.get('mss2')
-  # TODO populate response with parameters from levenshtein comparison algorithm
-  response = { 'TEST': 'TEST' }
-  # = {
-  #   'levenshtein': {
-  #     'mss': [mss1_name, mss2_name],
-  #     'values': {
-  #       'x': { 
-  #         'label': mss1_name,
-  #         'values': [1,2,3]
-  #       },
-  #       'y': {
-  #         'label': mss2_name,
-  #         'values': [1,2,3]
-  #       }
-  #    }
-  #   }
-  # }
+  mss1_name = request.args.get('mss1')
+  mss2_name = request.args.get('mss2')
+  response = {}
+  
+  if (mss1_name is None) or (mss2_name is None):
+    response = {'error': 'invalid manuscript names'}
+  else:
+    # TODO populate response with parameters from levenshtein comparison algorithm
+    response = {
+     'levenshtein': {
+        'mss': [mss1_name, mss2_name],
+        'values': {
+          'x': { 
+            'label': mss1_name,
+            'values': [1,2,3]
+          },
+          'y': {
+            'label': mss2_name,
+            'values': [1,2,3]
+          }
+      }
+      }
+    }
   return jsonify(response)
 
 def get_file_contents(filename): 
