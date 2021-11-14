@@ -30,7 +30,7 @@ def get_distances_from_filepaths(files):
         #sources.append(mapped_text)
         files[filename]=mapped_text
     
-    distances=get_distances([mapped_text for filename, mapped_text in files.items()])
+    distances=get_distances_dataframe([mapped_text for filename, mapped_text in files.items()])
     rev_files={y: x for x, y in files.items()}
     return distances.rename(columns=rev_files, index=rev_files)
 
