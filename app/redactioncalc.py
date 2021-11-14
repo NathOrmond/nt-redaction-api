@@ -8,11 +8,9 @@ _default_distance_func=levenschtein_distance_basic
 def get_distances_from_filepaths(files):
     '''
     A wrapper for get_distances that allows passing filepaths directly.
-
     Input
     -----
     files   dict    A dictionary with of the form {name: filepath}
-
     Ouput
     -----
     pd.DataFrame with the distances from all files to each other.
@@ -36,20 +34,18 @@ def get_distances_from_filepaths(files):
     rev_files={y: x for x, y in files.items()}
     return distances.rename(columns=rev_files, index=rev_files)
 
-def get_distances(sources, targets=[]):
+def get_distances_dataframe(sources, targets=[]):
     '''
     Returns a dataframe with the distances from the sources to the targets. 
     If the targets is empty it returns the distances between all elements of 
     the sources to each other
-    
     Inputs
     ------
-    sources:    list of strings
-    targets:    empty list or list of strings
-    
+    sources:    list of strings #TODO WHAT STRINGS
+    targets:    empty list or list of strings #TODO WHAT LISTS
     Output
     ------
-    pd.DataFrame object with rows = sources and columns = targets.
+    pd.DataFrame object with rows = sources and columns = targets. #TODO UNINFORMATIVE
     '''
     if targets == []:
         targets=sources

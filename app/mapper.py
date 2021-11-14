@@ -1,13 +1,13 @@
 import string
 import random
 
-def file_to_wordlist(in_dir):
+def file_to_wordlist(filepath):
     '''
-    Reads file from in_dir and returns a list with all words in order, 
+    Reads file from filepath and returns a list with all words in order, 
     including duplicates.
     '''
     words = []
-    with open(in_dir) as file:
+    with open(filepath) as file:
         for line in file:
             line=line.strip()
             for word in line.split(' '):
