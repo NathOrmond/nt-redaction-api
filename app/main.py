@@ -46,18 +46,21 @@ def levenshtein():
   # Get parameters for documents to compare from url 
   mss1_name = request.args.get('mss1')
   mss2_name = request.args.get('mss2')
+  mss3_name = request.args.get('mss3')
+  
   response = {}
-  if (mss1_name is None) or (mss2_name is None):
+  if (mss1_name is None) or (mss2_name is None) or (mss3_name is None):
     response = {'error': 'invalid manuscript names'}
   else:  
     files = {
       mss1_name : concat_filepath(mss1_name),
-      mss2_name : concat_filepath(mss2_name)
+      mss2_name : concat_filepath(mss2_name),
+      mss3_name : concat_filepath(mss3_name)
     }
     values = get_distances_from_filepaths(files)
     response = {
      'levenshtein': {
-        'mss': [mss1_name, mss2_name],
+        'mss': [mss1_name, mss2_name, mss3_name],
         'values': json.loads(values.to_json())
       }
     }
