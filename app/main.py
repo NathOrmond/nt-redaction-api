@@ -34,9 +34,10 @@ def display():
     content = get_file_contents(filename)
   else: 
     content ='Manuscript not found'
-    response = {
+    
+  response = {
     'contents' : content
-    }
+  }
   return jsonify(response)
 
 @app.route('/levenshtein', methods=['GET'])
